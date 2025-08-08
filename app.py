@@ -33,6 +33,7 @@ HTML_TEMPLATE = """
 <!doctype html>
 <html>
 <head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <meta charset="utf-8">
     <title>Калькулятор СЮЦАЙ</title>
     <style>
@@ -92,7 +93,7 @@ HTML_TEMPLATE = """
         <h1>Введите текст:</h1>
         <div class="subtitle">(на латинице, без пробелов)</div>
         <form method='POST'>
-            <input name='user_input' placeholder='123ABC' required>
+            <input name='user_input' placeholder='abc123' required>
             <br>
             <button type='submit'>Рассчитать</button>
         </form>
@@ -112,6 +113,14 @@ def index():
         result = calculate_sum(user_input)
     return render_template_string(HTML_TEMPLATE, result=result)
 
+from flask import send_from_directory
+import os
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, ''),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
