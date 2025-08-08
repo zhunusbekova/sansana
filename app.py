@@ -36,7 +36,7 @@ HTML_TEMPLATE = """
     <title>Сумма букв и чисел</title>
 </head>
 <body>
-    <h1>Введите строку:</h1>
+    <h1>Введите текст на латинице:</h1>
     <form method='POST'>
         <input name='user_input' placeholder='Введите значение' required>
         <button type='submit'>Рассчитать</button>
