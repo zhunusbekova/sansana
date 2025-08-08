@@ -51,6 +51,19 @@ HTML_TEMPLATE = """
             margin: 0;
             padding: 15px;
         }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes buttonClick {
+            0% { transform: scale(1); background-color: #4facfe; }
+            50% { transform: scale(0.95); background-color: #00a6ff; }
+            100% { transform: scale(1); background-color: #4facfe; }
+        }
         .container {
             background: white;
             padding: 25px;
@@ -59,17 +72,22 @@ HTML_TEMPLATE = """
             text-align: center;
             width: 100%;
             max-width: 400px;
-            animation: fadeIn 0.6s ease-in-out;
+            animation: fadeInUp 0.6s ease-out forwards;
         }
         h1 {
             margin-bottom: 5px;
             color: #4facfe;
             font-size: 24px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
         }
         .subtitle {
             font-size: 12px;
             color: #666;
             margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+            animation-delay: 0.1s;
         }
         input {
             padding: 12px;
@@ -79,6 +97,9 @@ HTML_TEMPLATE = """
             margin-bottom: 15px;
             font-size: 16px;
             box-sizing: border-box;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.2s;
         }
         button {
             padding: 12px;
@@ -90,9 +111,15 @@ HTML_TEMPLATE = """
             font-size: 16px;
             cursor: pointer;
             transition: background 0.3s;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out forwards;
+            animation-delay: 0.4s;
         }
         button:hover {
             background: #00c3ff;
+        }
+        button.clicked {
+            animation: buttonClick 0.25s ease;
         }
         .result {
             margin-top: 15px;
@@ -100,11 +127,19 @@ HTML_TEMPLATE = """
             font-weight: bold;
             color: #333;
             word-wrap: break-word;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .result.show {
+            opacity: 1;
         }
         .footer {
             margin-top: 20px;
             font-size: 12px;
             color: #777;
+            opacity: 0;
+            animation: fadeIn 1.6s ease-out forwards;
+            animation-delay: 0.8s;
         }
         .footer a {
             color: #777;
@@ -113,10 +148,6 @@ HTML_TEMPLATE = """
         .footer a:hover {
             text-decoration: underline;
             color: #4facfe;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -129,12 +160,32 @@ HTML_TEMPLATE = """
             <button type='submit'>Рассчитать</button>
         </form>
         {% if result is not none %}
-            <div class="result">Сумма: {{ result }}</div>
+            <div class="result">{{ 'Сумма: ' + result|string }}</div>
         {% endif %}
         <div class="footer">
             created by <a href="https://instagram.com/araiym.live" target="_blank">@araiym.live</a>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const resultBlock = document.querySelector(".result");
+            const form = document.querySelector("form");
+            const button = form.querySelector("button");
+
+            if (resultBlock) {
+                setTimeout(() => resultBlock.classList.add("show"), 50);
+            }
+
+            form.addEventListener("submit", () => {
+                if (resultBlock) {
+                    resultBlock.classList.remove("show");
+                }
+                button.classList.add("clicked");
+                setTimeout(() => button.classList.remove("clicked"), 250);
+            });
+        });
+    </script>
 </body>
 </html>
 """
