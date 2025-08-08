@@ -171,7 +171,7 @@ HTML_TEMPLATE = """
     <div class="subtitle">(на латинице, без пробелов)</div>
     <input id="user_input" placeholder="Например: abc123" required>
     <div class="error-message" id="error_msg">Допустимы только латинские буквы и цифры без пробелов</div>
-    <button id="calc_btn">Рассчитать</button>
+    <button id="calc_btn" type="button">Рассчитать</button>
     <div class="result" id="result"></div>
     <div class="footer">
         created by <a href="https://instagram.com/araiym.live" target="_blank">@araiym.live</a>
