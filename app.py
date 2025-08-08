@@ -28,8 +28,12 @@ def calculate_sum(num):
                 sum_letters += int(letter)
             except:
                 pass
+    # Сведение к одной цифре
+    while sum_letters > 9:
+        sum_letters = sum(int(d) for d in str(sum_letters))
+    
     return sum_letters
-
+    
 # HTML-шаблон
 HTML_TEMPLATE = """
 <!doctype html>
