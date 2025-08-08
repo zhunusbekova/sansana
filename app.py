@@ -30,7 +30,7 @@ def calculate_sum(num):
                 pass
     return sum_letters
 
-# HTML-шаблон с адаптивным дизайном
+# HTML-шаблон
 HTML_TEMPLATE = """
 <!doctype html>
 <html>
@@ -101,6 +101,19 @@ HTML_TEMPLATE = """
             color: #333;
             word-wrap: break-word;
         }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+        .footer a {
+            color: #777;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+            color: #4facfe;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -118,12 +131,15 @@ HTML_TEMPLATE = """
         {% if result is not none %}
             <div class="result">Сумма: {{ result }}</div>
         {% endif %}
+        <div class="footer">
+            created by <a href="https://instagram.com/araiym.live" target="_blank">@araiym.live</a>
+        </div>
     </div>
 </body>
 </html>
 """
 
-# Маршрут для favicon (если добавишь иконку)
+# Маршрут для favicon
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, ''),
