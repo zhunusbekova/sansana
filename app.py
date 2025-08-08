@@ -89,9 +89,9 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h1>Введите текст на латинице</h1>
+        <h1>Введите текст (на латинице, без пробелов)</h1>
         <form method='POST'>
-            <input name='user_input' placeholder='Введите значение' required>
+            <input name='user_input' placeholder='123ABC' required>
             <br>
             <button type='submit'>Рассчитать</button>
         </form>
