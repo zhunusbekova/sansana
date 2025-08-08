@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template_string, send_from_directory
-import os, re
+import os
 
 app = Flask(__name__)
 
