@@ -89,7 +89,8 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h1>Введите текст (на латинице, без пробелов)</h1>
+        <h1>Введите текст:</h1>
+        <div class="subtitle">(на латинице, без пробелов)</div>
         <form method='POST'>
             <input name='user_input' placeholder='123ABC' required>
             <br>
