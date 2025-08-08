@@ -33,17 +33,72 @@ HTML_TEMPLATE = """
 <!doctype html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Сумма букв и чисел</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 350px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #4facfe;
+        }
+        input {
+            padding: 10px;
+            width: 80%;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4facfe;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #00c3ff;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    <h1>Введите текст на латинице:</h1>
-    <form method='POST'>
-        <input name='user_input' placeholder='Введите значение' required>
-        <button type='submit'>Рассчитать</button>
-    </form>
-    {% if result is not none %}
-        <h2>Сумма: {{ result }}</h2>
-    {% endif %}
+    <div class="container">
+        <h1>Калькулятор суммы</h1>
+        <form method='POST'>
+            <input name='user_input' placeholder='Введите значение' required>
+            <br>
+            <button type='submit'>Рассчитать</button>
+        </form>
+        {% if result is not none %}
+            <div class="result">Сумма: {{ result }}</div>
+        {% endif %}
+    </div>
 </body>
 </html>
 """
@@ -57,5 +112,5 @@ def index():
     return render_template_string(HTML_TEMPLATE, result=result)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000)) 
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
