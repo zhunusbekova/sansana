@@ -40,74 +40,36 @@ HTML_TEMPLATE = """
     <title>Калькулятор Сюцай</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <style>
-        :root {
-            --bg-gradient: linear-gradient(to right, #4facfe, #00f2fe);
-            --container-bg: white;
-            --text-color: #333;
-            --subtitle-color: #666;
-            --button-bg: #4facfe;
-            --button-hover: #00c3ff;
-            --footer-color: #777;
-        }
-        body.dark {
-            --bg-gradient: linear-gradient(to right, #141e30, #243b55);
-            --container-bg: #1f2937;
-            --text-color: #f3f4f6;
-            --subtitle-color: #9ca3af;
-            --button-bg: #374151;
-            --button-hover: #4b5563;
-            --footer-color: #9ca3af;
-        }
         body {
             font-family: Arial, sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-color);
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             padding: 15px;
-            transition: background 0.3s;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes buttonClick {
-            0% { transform: scale(1); background-color: var(--button-bg); }
-            50% { transform: scale(0.95); background-color: var(--button-hover); }
-            100% { transform: scale(1); background-color: var(--button-bg); }
         }
         .container {
-            background: var(--container-bg);
+            background: white;
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             text-align: center;
             width: 100%;
             max-width: 400px;
-            animation: fadeInUp 0.6s ease-out forwards;
-            transition: background 0.3s;
+            animation: fadeIn 0.6s ease-in-out;
         }
         h1 {
             margin-bottom: 5px;
-            color: var(--button-bg);
+            color: #4facfe;
             font-size: 24px;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
         }
         .subtitle {
             font-size: 12px;
-            color: var(--subtitle-color);
+            color: #666;
             margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
-            animation-delay: 0.1s;
         }
         input {
             padding: 12px;
@@ -117,138 +79,62 @@ HTML_TEMPLATE = """
             margin-bottom: 15px;
             font-size: 16px;
             box-sizing: border-box;
-            opacity: 0;
-            animation: fadeIn 1s ease-out forwards;
-            animation-delay: 0.2s;
         }
         button {
-            padding: 14px;
+            padding: 12px;
             width: 100%;
-            background: var(--button-bg);
+            background: #4facfe;
             border: none;
             border-radius: 8px;
             color: white;
             font-size: 16px;
             cursor: pointer;
             transition: background 0.3s;
-            opacity: 0;
-            animation: fadeIn 1.2s ease-out forwards;
-            animation-delay: 0.4s;
         }
         button:hover {
-            background: var(--button-hover);
-        }
-        button.clicked {
-            animation: buttonClick 0.25s ease;
+            background: #00c3ff;
         }
         .result {
             margin-top: 15px;
             font-size: 18px;
             font-weight: bold;
-            color: var(--text-color);
+            color: #333;
             word-wrap: break-word;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-        .result.show {
-            opacity: 1;
         }
         .footer {
             margin-top: 20px;
             font-size: 12px;
-            color: var(--footer-color);
-            opacity: 0;
-            animation: fadeIn 1.6s ease-out forwards;
-            animation-delay: 0.8s;
+            color: #777;
         }
         .footer a {
-            color: var(--footer-color);
+            color: #777;
             text-decoration: none;
         }
         .footer a:hover {
             text-decoration: underline;
-            color: var(--button-bg);
+            color: #4facfe;
         }
-        .theme-toggle {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: white;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <button class="theme-toggle">🌙</button>
     <div class="container">
         <h1>Введите текст</h1>
         <div class="subtitle">(на латинице, без пробелов)</div>
         <form method='POST'>
-            <input id="user_input" name='user_input' placeholder='Например: abc123' required>
+            <input name='user_input' placeholder='Например: abc123' required>
             <button type='submit'>Рассчитать</button>
         </form>
         {% if result is not none %}
-            <div class="result" data-value="{{ result }}">Сумма: {{ result }}</div>
+            <div class="result">Сумма: {{ result }}</div>
         {% endif %}
         <div class="footer">
             created by <a href="https://instagram.com/araiym.live" target="_blank">@araiym.live</a>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const input = document.getElementById("user_input");
-            const resultBlock = document.querySelector(".result");
-            const form = document.querySelector("form");
-            const button = form.querySelector("button");
-            const themeToggle = document.querySelector(".theme-toggle");
-
-            // Автофокус
-            input.focus();
-
-            // Восстановление значения
-            input.value = localStorage.getItem("user_input") || "";
-            input.addEventListener("input", () => {
-                localStorage.setItem("user_input", input.value);
-            });
-
-            // Анимация результата (count-up)
-            if (resultBlock) {
-                setTimeout(() => resultBlock.classList.add("show"), 50);
-                const finalValue = parseInt(resultBlock.dataset.value);
-                if (!isNaN(finalValue)) {
-                    let current = 0;
-                    const step = Math.ceil(finalValue / 30);
-                    const interval = setInterval(() => {
-                        current += step;
-                        if (current >= finalValue) {
-                            current = finalValue;
-                            clearInterval(interval);
-                        }
-                        resultBlock.textContent = "Сумма: " + current;
-                    }, 20);
-                }
-            }
-
-            // Плавное исчезновение результата при повторном вводе
-            form.addEventListener("submit", () => {
-                if (resultBlock) {
-                    resultBlock.classList.remove("show");
-                }
-                button.classList.add("clicked");
-                setTimeout(() => button.classList.remove("clicked"), 250);
-            });
-
-            // Переключение темы
-            themeToggle.addEventListener("click", () => {
-                document.body.classList.toggle("dark");
-                themeToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
-            });
-        });
-    </script>
 </body>
 </html>
 """
@@ -268,7 +154,7 @@ def index():
         result = calculate_sum(user_input)
     return render_template_string(HTML_TEMPLATE, result=result)
 
-# Запуск
+# Запуск для Render
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
