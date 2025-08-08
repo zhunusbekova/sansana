@@ -34,7 +34,7 @@ HTML_TEMPLATE = """
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Сумма букв и чисел</title>
+    <title>Калькулятор СЮЦАЙ</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,7 +89,7 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h1>Калькулятор суммы</h1>
+        <h1>Введите текст на латинице</h1>
         <form method='POST'>
             <input name='user_input' placeholder='Введите значение' required>
             <br>
